@@ -29,6 +29,17 @@ from transformers import (
 )
 from sklearn.model_selection import train_test_split
 
+import logging
+logging.basicConfig(
+filename="step.log",
+encoding="utf-8",
+filemode="a",
+format="{asctime} - {levelname} - {message}",
+style="{",
+datefmt="%Y-%m-%d %H:%M",
+)
+logging.warning("import done")
+
 def set_seed(seed):
   random.seed(seed)
   np.random.seed(seed)
@@ -37,15 +48,18 @@ def set_seed(seed):
 set_seed(42)
 
 pd.set_option('display.max_colwidth', None)
-df = pd.read_csv('/c4_200m_550k.csv')
+df = pd.read_csv('c4_200m_550k.csv')
 df.shape
 df.head()
+
+logging.warning("csv read successfully")
 
 model_name = 't5-base'
 tokenizer = T5Tokenizer.from_pretrained(model_name, padding='max_length', truncation=True)
 tokenizer.max_model_length = 512
 model = T5ForConditionalGeneration.from_pretrained(model_name)
 
+logging.warning("model instantiated")
 
 def calc_token_len(example):
     return len(tokenizer(example).input_ids)
@@ -157,9 +171,15 @@ trainer = Seq2SeqTrainer(model=model,
                 data_collator=data_collator,
                 compute_metrics=compute_metrics)
 
+logging.warning("training started")
+
 trainer.train()
 
+logging.warning("training ended")
+
 trainer.save_model('t5_gec_model_v1')
+
+logging.warning("model saved")
 
 import torch
 from transformers import T5Tokenizer, T5ForConditionalGeneration
