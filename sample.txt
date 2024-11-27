@@ -1,0 +1,6 @@
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIBtE4JuJytPJtT7RenAj/F0DLRbiuBPB82hMAlpOuTr umesh@MacBook-Pro.domain.name
+
+
+ssh umesh@publicip
+
+Umesh$06
