@@ -124,6 +124,11 @@ trainer.train()
 
 logging.warning("training ended")
 
-trainer.save_model('t5_gec_model')
+tokenizer.save_pretrained('t5_um_gec_model')
+
+logging.warning("tokenizer saved")
+
+trainer.save_model('t5_um_gec_model')
 
 logging.warning("model saved")
+
